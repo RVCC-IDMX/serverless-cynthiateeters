@@ -1,0 +1,26 @@
+{
+  "name": "serverless-cynthiateeters",
+  "version": "1.0.0",
+  "description": "Learn how to use serverless functions in less than 30 minutes!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RVCC-IDMX/serverless-cynthiateeters.git"
+  },
+  "author": "Cynthia Teeters <cynthia.teeters@raritanval.edu> (https://github.com/cynthiateeters)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RVCC-IDMX/serverless-cynthiateeters/issues"
+  },
+  "homepage": "https://github.com/RVCC-IDMX/serverless-cynthiateeters#readme",
+  "devDependencies": {
+    "@eslint/create-config": "^0.4.1",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "netlify-cli": "^12.2.4"
+  }
+}
