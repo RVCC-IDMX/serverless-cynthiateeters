@@ -4,14 +4,18 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 exports.handler = async (event, context) => {
-  const POKE_API = 'https://pokeapi.co/api/v2/pokedex/kanto';
+  const eventBody = JSON.parse(event.body);
+  console.log(eventBody);
+  const POKE_API = `https://pokeapi.co/api/v2/pokedex/${eventBody.region}`;
 
   console.log('Fetching data from PokeAPI...');
   const response = await fetch(POKE_API);
   const data = await response.json();
-  console.table(data.pokemon_entries);
+  // console.table(data.pokemon_entries);
   return {
     statusCode: 200,
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      pokemon: data.pokemon_entries,
+    }),
   };
 };
