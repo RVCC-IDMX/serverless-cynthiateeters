@@ -1,23 +1,20 @@
 /* eslint-disable no-unused-vars */
-// mod.cjs
-// eslint-disable-next-line no-shadow
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const chalk = require('chalk');
-const { DateTime } = require('luxon');
+import fetch from 'node-fetch';
+import chalk from 'chalk';
+import { format } from 'date-fns';
 
-exports.handler = async (event, context) => {
+// eslint-disable-next-line import/prefer-default-export
+export async function handler(event) {
   const eventBody = JSON.parse(event.body);
-  const date = DateTime.now();
-  const color = eventBody.region === 'kanto' ? chalk.blue : chalk.green;
 
-  console.log(color(`${date}: Fetching data from PokeAPI`));
-  console.log(color(`\teventBody.region: ${eventBody.region}`));
+  const now = format(new Date(), 'MM/dd/yyyy H:mm:ss');
+  const color = eventBody.region === 'kanto' ? chalk.blue : chalk.green;
+  console.log(color(`${now}: Call to Pokedex function for ${eventBody.region}`));
 
   const POKE_API = `https://pokeapi.co/api/v2/pokedex/${eventBody.region}`;
 
   const response = await fetch(POKE_API);
   const data = await response.json();
-  console.log(color(`\tNumber of entries: ${data.pokemon_entries.length}`));
 
   return {
     statusCode: 200,
@@ -25,4 +22,16 @@ exports.handler = async (event, context) => {
       pokemon: data.pokemon_entries,
     }),
   };
-};
+}
+
+/*
+
+https://www.netlify.com/blog/2021/04/02/modern-faster-netlify-functions/
+export async function handler(event, context) {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Hello World" })
+  }
+}
+
+*/
